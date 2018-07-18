@@ -1,3 +1,5 @@
 /.vs
 /MotionDetectorWebApi/bin
 /MotionDetectorWebApi/obj
+/MotionFileWatcher/obj
+/MotionFileWatcher/bin

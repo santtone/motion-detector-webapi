@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using MotionDetectorWebApi.Repositories;
 using MotionDetectorWebApi.Services;
+using MotionFileWatcher;
 
 namespace MotionDetectorWebApi
 {
@@ -22,6 +15,9 @@ namespace MotionDetectorWebApi
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            var filePath = Configuration["FilePath"];
+            var fileWatcher = new FileWatcher(filePath);
+            fileWatcher.Start();
         }
 
         public IConfiguration Configuration { get; }
@@ -37,10 +33,11 @@ namespace MotionDetectorWebApi
             {
                 options.AddPolicy("CorsPolicy",
                     builder => builder
-                    .AllowAnyMethod()
-                    .AllowAnyOrigin()
-                    .AllowAnyHeader());
-            }); ;
+                        .AllowAnyMethod()
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader());
+            });
+            ;
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
