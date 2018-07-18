@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2002
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotionDetectorWebApi", "MotionDetectorWebApi\MotionDetectorWebApi.csproj", "{D07DC22F-903C-4DF0-83BF-3B40B4BC4D98}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D07DC22F-903C-4DF0-83BF-3B40B4BC4D98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D07DC22F-903C-4DF0-83BF-3B40B4BC4D98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D07DC22F-903C-4DF0-83BF-3B40B4BC4D98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D07DC22F-903C-4DF0-83BF-3B40B4BC4D98}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2FB0A0DE-2CBE-4CF5-8883-268B8C3528BD}
+	EndGlobalSection
+EndGlobal
