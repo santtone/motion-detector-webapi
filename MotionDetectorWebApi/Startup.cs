@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using GoogleDriveClient;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,9 +16,16 @@ namespace MotionDetectorWebApi
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
             var filePath = Configuration["FilePath"];
             var fileWatcher = new FileWatcher(filePath);
             fileWatcher.Start();
+
+            var drive = new GDrive(
+                Configuration["GoogleDrive:AppServiceEmail"],
+                Configuration["GoogleDrive:KeyFilePath"],
+                Configuration["GoogleDrive:KeyPassword"]);
+            drive.ListFiles();
         }
 
         public IConfiguration Configuration { get; }
@@ -37,11 +45,8 @@ namespace MotionDetectorWebApi
                         .AllowAnyOrigin()
                         .AllowAnyHeader());
             });
-            ;
-
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
             services.AddDbContext<MotionDetectorContext>(options => options.UseSqlite("Data Source=motion.db"));
         }
 

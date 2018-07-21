@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.27428.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotionDetectorWebApi", "MotionDetectorWebApi\MotionDetectorWebApi.csproj", "{D07DC22F-903C-4DF0-83BF-3B40B4BC4D98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotionFileWatcher", "MotionFileWatcher\MotionFileWatcher.csproj", "{9376C88A-B508-439B-B399-B63816DB346B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotionFileWatcher", "MotionFileWatcher\MotionFileWatcher.csproj", "{9376C88A-B508-439B-B399-B63816DB346B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleDriveClient", "GoogleDriveClient\GoogleDriveClient.csproj", "{0D4C4457-A778-44E0-853C-994D78696F12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{9376C88A-B508-439B-B399-B63816DB346B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9376C88A-B508-439B-B399-B63816DB346B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9376C88A-B508-439B-B399-B63816DB346B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D4C4457-A778-44E0-853C-994D78696F12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D4C4457-A778-44E0-853C-994D78696F12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D4C4457-A778-44E0-853C-994D78696F12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D4C4457-A778-44E0-853C-994D78696F12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

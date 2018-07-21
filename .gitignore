@@ -3,3 +3,5 @@
 /MotionDetectorWebApi/obj
 /MotionFileWatcher/obj
 /MotionFileWatcher/bin
+/GoogleDriveClient/bin
+/GoogleDriveClient/obj
