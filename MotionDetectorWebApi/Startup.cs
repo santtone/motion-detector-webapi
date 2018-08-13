@@ -21,11 +21,7 @@ namespace MotionDetectorWebApi
             var fileWatcher = new FileWatcher(filePath);
             fileWatcher.Start();
 
-            var drive = new GDrive(
-                Configuration["GoogleDrive:AppServiceEmail"],
-                Configuration["GoogleDrive:KeyFilePath"],
-                Configuration["GoogleDrive:KeyPassword"]);
-            drive.ListFiles();
+            //drive.UploadFile("C:\\dev-private\\motion-detector\\app_data\\image\\test.jpg");
         }
 
         public IConfiguration Configuration { get; }
@@ -34,6 +30,9 @@ namespace MotionDetectorWebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IWebPushService, WebPushService>();
+            services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IDriveService, DriveService>();
+
             services.AddScoped<IWebPushRepository, WebPushRepository>();
 
 
