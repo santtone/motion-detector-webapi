@@ -1,4 +1,5 @@
-﻿using GoogleDriveClient;
+﻿using System;
+using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -13,15 +14,21 @@ namespace MotionDetectorWebApi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", false, true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", false);
+
+            builder.AddEnvironmentVariables();
+            Configuration = builder.Build();
+
+            Console.WriteLine("Environment = " + env.EnvironmentName);
 
             var filePath = Configuration["FilePath"];
             var fileWatcher = new FileWatcher(filePath);
             fileWatcher.Start();
-
-            //drive.UploadFile("C:\\dev-private\\motion-detector\\app_data\\image\\test.jpg");
         }
 
         public IConfiguration Configuration { get; }
