@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MotionDetectorWebApi.Repositories;
 using MotionDetectorWebApi.Services;
 using MotionFileWatcher;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace MotionDetectorWebApi
 {
@@ -26,10 +28,6 @@ namespace MotionDetectorWebApi
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
-
-            var filePath = Configuration["FilePath"];
-            var fileWatcher = new FileWatcher(filePath);
-            fileWatcher.Start();
         }
 
         public IConfiguration Configuration { get; }
@@ -37,9 +35,11 @@ namespace MotionDetectorWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IHostedService, FileWatcherService>();
+
             services.AddScoped<IWebPushService, WebPushService>();
             services.AddScoped<IFileService, FileService>();
-            services.AddScoped<IDriveService, DriveService>();
+            services.AddTransient<IDriveService, DriveService>();
 
             services.AddScoped<IWebPushRepository, WebPushRepository>();
 

@@ -9,5 +9,6 @@ namespace MotionDetectorWebApi.Services
     public interface IDriveService
     {
         Task<List<File>> GetFiles();
+        Task UploadFile(string filePath);
     }
 }

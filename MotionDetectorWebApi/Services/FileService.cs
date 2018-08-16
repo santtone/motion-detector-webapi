@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MotionDetectorWebApi.Models;
@@ -15,7 +14,7 @@ namespace MotionDetectorWebApi.Services
             _driveService = driveService;
         }
 
-        public async Task<List<MotionFile>> FindFiles()
+        public async Task<List<MotionFile>> FindDriveFiles()
         {
             var driveFiles = await _driveService.GetFiles();
             return driveFiles.Select(f => new MotionFile

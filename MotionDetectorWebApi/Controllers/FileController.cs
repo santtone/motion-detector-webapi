@@ -20,7 +20,7 @@ namespace MotionDetectorWebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var files = await _fileService.FindFiles();
+            var files = await _fileService.FindDriveFiles();
             return new JsonResult(files);
         }
     }
