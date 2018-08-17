@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Google.Apis.Drive.v3.Data;
 
@@ -10,5 +8,6 @@ namespace MotionDetectorWebApi.Services
     {
         Task<List<File>> GetFiles();
         Task UploadFile(string filePath);
+        Task DeleteAllFiles();
     }
 }

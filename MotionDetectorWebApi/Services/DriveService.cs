@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Google.Apis.Drive.v3.Data;
 using GoogleDriveClient;
@@ -34,6 +32,11 @@ namespace MotionDetectorWebApi.Services
         {
             var file = await _driveClient.UploadFile(filePath);
             _logger.LogDebug($"File uploaded to Google Drive. Id={file.Id}");
+        }
+
+        public async Task DeleteAllFiles()
+        {
+            await _driveClient.DeleteAllFiles();
         }
     }
 }

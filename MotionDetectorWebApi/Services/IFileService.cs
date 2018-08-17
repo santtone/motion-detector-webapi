@@ -9,5 +9,6 @@ namespace MotionDetectorWebApi.Services
     public interface IFileService
     {
         Task<List<MotionFile>> FindDriveFiles();
+        Task DeleteAllDriveFiles();
     }
 }

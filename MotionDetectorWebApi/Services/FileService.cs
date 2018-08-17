@@ -26,5 +26,10 @@ namespace MotionDetectorWebApi.Services
                 ThumbnailLink = f.ThumbnailLink
             }).ToList();
         }
+
+        public async Task DeleteAllDriveFiles()
+        {
+            await _driveService.DeleteAllFiles();
+        }
     }
 }

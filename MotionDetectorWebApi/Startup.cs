@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +8,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MotionDetectorWebApi.Repositories;
 using MotionDetectorWebApi.Services;
-using MotionFileWatcher;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace MotionDetectorWebApi
@@ -35,7 +32,7 @@ namespace MotionDetectorWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IHostedService, FileWatcherService>();
+            services.AddSingleton<IHostedService, FileWatcher>();
 
             services.AddScoped<IWebPushService, WebPushService>();
             services.AddScoped<IFileService, FileService>();
@@ -71,7 +68,7 @@ namespace MotionDetectorWebApi
 
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-            loggerFactory.AddFile(Configuration["Logging:PathFormat"]);
+            loggerFactory.AddFile(Configuration["LogPathFormat"]);
 
             app.UseHttpsRedirection();
             app.UseCors("CorsPolicy");

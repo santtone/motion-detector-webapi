@@ -23,5 +23,13 @@ namespace MotionDetectorWebApi.Controllers
             var files = await _fileService.FindDriveFiles();
             return new JsonResult(files);
         }
+
+        [Route("drive/all")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteDriveFiles()
+        {
+            await _fileService.DeleteAllDriveFiles();
+            return new AcceptedResult();
+        }
     }
 }
