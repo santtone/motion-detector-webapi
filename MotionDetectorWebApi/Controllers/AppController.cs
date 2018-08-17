@@ -6,9 +6,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MotionDetectorWebApi.Controllers
 {
+    /// <summary>
+    /// App API
+    /// </summary>
+    /// <remarks>API for application information</remarks>
     [Route("api/app")]
     public class AppController
     {
+        /// <summary>
+        /// Get Info
+        /// </summary>
+        /// <remarks>Get application information</remarks>
         [HttpGet]
         public IActionResult Get()
         {

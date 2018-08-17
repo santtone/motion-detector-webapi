@@ -7,6 +7,11 @@ using MotionDetectorWebApi.Services;
 
 namespace MotionDetectorWebApi.Controllers
 {
+
+    /// <summary>
+    /// File API
+    /// </summary>
+    /// <remarks>Manage local and Google Drive files</remarks>
     [Route("api/files")]
     public class FileController : Controller
     {
@@ -17,6 +22,10 @@ namespace MotionDetectorWebApi.Controllers
             _fileService = fileService;
         }
 
+        /// <summary>
+        /// Get files
+        /// </summary>
+        /// <remarks>Get all files from Google Drive</remarks>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -24,6 +33,11 @@ namespace MotionDetectorWebApi.Controllers
             return new JsonResult(files);
         }
 
+
+        /// <summary>
+        /// Delete files
+        /// </summary>
+        /// <remarks>Delete all Google Drive files</remarks>
         [Route("drive/all")]
         [HttpDelete]
         public async Task<IActionResult> DeleteDriveFiles()
