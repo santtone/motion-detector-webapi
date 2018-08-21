@@ -46,9 +46,13 @@ namespace GoogleDriveClient
 
         public async Task<File> UploadFile(string filePath)
         {
+            var fileName = Path.GetFileName(filePath);
+            var fileType = fileName?.Split('.')[1];
+            var mimeType = fileType == "avi" ? "video/x-msvideo" : "image/jpeg";
+
             var fileMetadata = new File
             {
-                Name = Path.GetFileName(filePath),
+                Name = fileName,
                 Parents = new List<string>
                 {
                     "1cnSgFlewdvvYVJ3x_vtdlP9c4ECox5Vv"
@@ -57,7 +61,7 @@ namespace GoogleDriveClient
             FilesResource.CreateMediaUpload request;
             using (var stream = new FileStream(filePath, System.IO.FileMode.Open))
             {
-                request = _service.Files.Create(fileMetadata, stream, "image/jpeg");
+                request = _service.Files.Create(fileMetadata, stream, mimeType);
                 request.Fields = "id";
                 await request.UploadAsync();
             }
