@@ -28,10 +28,11 @@ namespace MotionDetectorWebApi.Services
             return _driveClient.ListFiles();
         }
 
-        public async Task UploadFile(string filePath)
+        public async Task<File> UploadFile(string filePath)
         {
             var file = await _driveClient.UploadFile(filePath);
             _logger.LogDebug($"File uploaded to Google Drive. Id={file.Id}");
+            return file;
         }
 
         public async Task DeleteAllFiles()

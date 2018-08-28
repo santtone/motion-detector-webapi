@@ -36,10 +36,15 @@ namespace MotionDetectorWebApi.Services
             return Task.CompletedTask;
         }
 
-        private void OnFileCreated(object sender, FileSystemEventArgs e)
+        private async void OnFileCreated(object sender, FileSystemEventArgs e)
         {
             _logger.LogDebug($"File created. {e}");
-            _driveService.UploadFile(e.FullPath);
+            var uploaded = await _driveService.UploadFile(e.FullPath);
+            if (uploaded.Id != null)
+            {
+                if (File.Exists(e.FullPath))
+                    File.Delete(e.FullPath);
+            }
         }
 
         private void OnFileRenamed(object sender, RenamedEventArgs e)

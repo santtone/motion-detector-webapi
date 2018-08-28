@@ -17,14 +17,17 @@ namespace MotionDetectorWebApi.Services
         public async Task<List<MotionFile>> FindDriveFiles()
         {
             var driveFiles = await _driveService.GetFiles();
-            return driveFiles.Select(f => new MotionFile
+            var files = driveFiles.Select(f => new MotionFile
             {
                 Id = f.Id,
                 Name = f.Name,
                 Date = f.CreatedTime,
                 Link = f.WebContentLink,
-                ThumbnailLink = f.ThumbnailLink
+                ThumbnailLink = f.ThumbnailLink,
+                MimeType = f.MimeType
             }).ToList();
+            files.RemoveAll(f => f.Link == null);
+            return files;
         }
 
         public async Task DeleteAllDriveFiles()

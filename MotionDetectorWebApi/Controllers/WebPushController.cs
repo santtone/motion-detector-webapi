@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MotionDetectorWebApi.Controllers.Communication;
 using MotionDetectorWebApi.Services;
@@ -8,6 +9,7 @@ namespace MotionDetectorWebApi.Controllers
     /// <summary>
     /// Web Push API
     /// </summary>
+    [Authorize]
     [Route("api/webpush")]
     public class WebPushController : Controller
     {

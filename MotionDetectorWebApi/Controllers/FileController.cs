@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MotionDetectorWebApi.Services;
 
@@ -12,6 +13,7 @@ namespace MotionDetectorWebApi.Controllers
     /// File API
     /// </summary>
     /// <remarks>Manage local and Google Drive files</remarks>
+    [Authorize]
     [Route("api/files")]
     public class FileController : Controller
     {

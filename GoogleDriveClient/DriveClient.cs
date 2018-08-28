@@ -48,7 +48,7 @@ namespace GoogleDriveClient
         {
             var fileName = Path.GetFileName(filePath);
             var fileType = fileName?.Split('.')[1];
-            var mimeType = fileType == "avi" ? "video/x-msvideo" : "image/jpeg";
+            var mimeType = fileType == "mp4" ? "video/mp4" : "image/jpeg";
 
             var fileMetadata = new File
             {

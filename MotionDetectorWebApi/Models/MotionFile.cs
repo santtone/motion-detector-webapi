@@ -12,5 +12,6 @@ namespace MotionDetectorWebApi.Models
         public string Link { get; set; }
         public string ThumbnailLink { get; set; }
         public DateTime? Date { get; set; }
+        public string MimeType { get; set; }
     }
 }
