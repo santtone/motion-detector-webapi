@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -89,12 +86,12 @@ namespace MotionDetectorWebApi
                         Version = "v1",
                         Description = ".NET Core Web API 2.1"
                     });
-                c.IncludeXmlComments(GetXmlCommentsPath());
+                //c.IncludeXmlComments(GetXmlCommentsPath());
             });
         }
 
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -109,7 +106,7 @@ namespace MotionDetectorWebApi
             loggerFactory.AddDebug();
             loggerFactory.AddFile(Configuration["LogPathFormat"]);
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
             UseProxy(app);
@@ -122,6 +119,8 @@ namespace MotionDetectorWebApi
 
             _logger = loggerFactory.CreateLogger(typeof(Startup));
             _logger.LogInformation($"Starting MotionDetectorWebApi... Environment={env.EnvironmentName}");
+            _logger.LogInformation($"App Base Path={env.ContentRootPath}");
+            _logger.LogInformation($"wwwroot Path={env.WebRootPath}");
         }
 
         private static string GetXmlCommentsPath()
