@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -32,6 +32,9 @@ namespace MotionDetectorWebApi
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            //var motionConfigReader = new MotionConfigReader();
+            //var config = motionConfigReader.ReadConfigurationFile("C:\\dev-private\\motion-detector\\app_data\\motion.conf");
         }
 
         public IConfiguration Configuration { get; }
@@ -45,6 +48,8 @@ namespace MotionDetectorWebApi
             services.AddScoped<IWebPushService, WebPushService>();
             services.AddScoped<IFileService, FileService>();
             services.AddTransient<IDriveService, DriveService>();
+            services.AddSingleton<IStreamTokenService, StreamTokenService>();
+
 
             services.AddScoped<IWebPushRepository, WebPushRepository>();
 
@@ -106,6 +111,11 @@ namespace MotionDetectorWebApi
             loggerFactory.AddDebug();
             loggerFactory.AddFile(Configuration["LogPathFormat"]);
 
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+
             //app.UseHttpsRedirection();
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
@@ -130,26 +140,30 @@ namespace MotionDetectorWebApi
 
         private void UseProxy(IApplicationBuilder app)
         {
+            var streamTokenService =
+                (IStreamTokenService) app.ApplicationServices.GetService(typeof(IStreamTokenService));
             //Proxy /stream to the motion server
-            app.Map("/stream", builder =>
-            {
-                builder.Run(async context =>
-                {
-                    if (!context.User.Identity.IsAuthenticated)
-                    {
-                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                        await context.Response.WriteAsync("Authentication required for path /stream");
-                    }
-                });
-            });
             app.MapWhen(
-                context => context.Request.Path.Value.StartsWith(@"/stream", StringComparison.OrdinalIgnoreCase),
-                builder => builder.RunProxy(new ProxyOptions
+                context =>
                 {
-                    Scheme = Configuration["StreamProxy:Scheme"],
-                    Host = Configuration["StreamProxy:Host"],
-                    Port = Configuration["StreamProxy:Port"]
-                }));
+                    var isStreamPath =
+                        context.Request.Path.Value.StartsWith(@"/stream", StringComparison.OrdinalIgnoreCase);
+
+                    if (!isStreamPath)
+                        return false;
+
+                    var token = context.Request.Query["token"].ToString();
+                    return !string.IsNullOrEmpty(token) && streamTokenService.IsValidToken(token);
+                },
+                builder =>
+                {
+                    builder.RunProxy(new ProxyOptions
+                    {
+                        Scheme = Configuration["StreamProxyLocal:Scheme"],
+                        Host = Configuration["StreamProxyLocal:Host"],
+                        Port = Configuration["StreamProxyLocal:Port"]
+                    });
+                });
         }
     }
 }

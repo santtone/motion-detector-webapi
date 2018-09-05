@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Sockets.Internal;
 using Microsoft.Extensions.Configuration;
 using MotionDetectorWebApi.Models;
+using MotionDetectorWebApi.Utils;
 using Newtonsoft.Json;
 
 namespace MotionDetectorWebApi.Services
@@ -20,8 +22,7 @@ namespace MotionDetectorWebApi.Services
 
         public async Task<AccessToken> GetToken(string username, string password)
         {
-            var usernamePostFix = "@" + _configuration["Azure:AD:Domain"];
-            username = username + usernamePostFix;
+            username = AuthHelper.UsernameToAzurePrincipalName(_configuration["Azure:AD:UsernamePostfix"], username);
             var requestParams = AuthenticationRequestParams(username, password);
             var token = await RequestAccessToken(requestParams, _configuration["Azure:AD:AuthenticationEndpoint"]);
             return token;

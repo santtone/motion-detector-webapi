@@ -6,3 +6,5 @@
 /GoogleDriveClient/bin
 /GoogleDriveClient/obj
 /MotionDetectorWebApi/logs
+/MotionConfigHandler/bin
+/MotionConfigHandler/obj
