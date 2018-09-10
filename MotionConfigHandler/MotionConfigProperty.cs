@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MotionConfigHandler
+namespace MotionConfigManager
 {
     public class MotionConfigProperty : Attribute
     {

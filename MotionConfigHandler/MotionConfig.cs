@@ -1,12 +1,26 @@
-﻿
-namespace MotionConfigHandler
+﻿namespace MotionConfigManager
 {
     public class MotionConfig
     {
+        public bool RecordMotion { get; set; }
+
         [MotionConfigProperty("width")]
-        public int? CaptureWidth { get; set; }
+        public string CaptureWidth { get; set; }
 
         [MotionConfigProperty("height")]
-        public int? CaptureHeight { get; set; }
+        public string CaptureHeight { get; set; }
+
+        [MotionConfigProperty("framerate")]
+        public string CaptureFramerate { get; set; }
+
+        [MotionConfigProperty("brightness")]
+        public string CaptureBrightness { get; set; }
+
+        [MotionConfigProperty("contrast")]
+        public string CaptureContrast { get; set; }
+
+        [MotionConfigProperty("quality")]
+        public string ImageQuality { get; set; }
+        
     }
 }

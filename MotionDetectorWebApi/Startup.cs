@@ -32,9 +32,6 @@ namespace MotionDetectorWebApi
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
-
-            //var motionConfigReader = new MotionConfigReader();
-            //var config = motionConfigReader.ReadConfigurationFile("C:\\dev-private\\motion-detector\\app_data\\motion.conf");
         }
 
         public IConfiguration Configuration { get; }
@@ -43,12 +40,13 @@ namespace MotionDetectorWebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IHostedService, FileWatcher>();
+            services.AddSingleton<IStreamTokenService, StreamTokenService>();
 
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IWebPushService, WebPushService>();
             services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IMotionService, MotionService>();
             services.AddTransient<IDriveService, DriveService>();
-            services.AddSingleton<IStreamTokenService, StreamTokenService>();
 
 
             services.AddScoped<IWebPushRepository, WebPushRepository>();
@@ -119,6 +117,7 @@ namespace MotionDetectorWebApi
             //app.UseHttpsRedirection();
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
             UseProxy(app);
 
             app.UseSwagger();

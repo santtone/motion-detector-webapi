@@ -29,7 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GoogleDriveClient\GoogleDriveClient.csproj" />
-    <ProjectReference Include="..\MotionConfigHandler\MotionConfigHandler.csproj" />
+    <ProjectReference Include="..\MotionConfigHandler\MotionConfigManager.csproj" />
   </ItemGroup>
 
 </Project>

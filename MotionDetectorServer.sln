@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotionDetectorWebApi", "Mot
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoogleDriveClient", "GoogleDriveClient\GoogleDriveClient.csproj", "{0D4C4457-A778-44E0-853C-994D78696F12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotionConfigHandler", "MotionConfigHandler\MotionConfigHandler.csproj", "{D04CD16A-72D0-44C6-ABB3-B977B0F0340E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotionConfigManager", "MotionConfigHandler\MotionConfigManager.csproj", "{D04CD16A-72D0-44C6-ABB3-B977B0F0340E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
