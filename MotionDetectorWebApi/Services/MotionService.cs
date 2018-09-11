@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using MotionConfigManager;
 
 namespace MotionDetectorWebApi.Services
@@ -8,11 +9,11 @@ namespace MotionDetectorWebApi.Services
         private readonly MotionConfigHandler _motionConfigHandler;
         private readonly string _motionConfigPath;
 
-        public MotionService()
+        public MotionService(IConfiguration configuration)
         {
-            _motionConfigPath = "C:\\dev-private\\motion-detector\\app_data\\motion.conf";
+            _motionConfigPath = configuration["Motion:ConfigPath"];
             _motionConfigHandler =
-                new MotionConfigHandler("http://192.168.100.12:8080/0", _motionConfigPath);
+                new MotionConfigHandler(configuration["Motion:WebControl"], _motionConfigPath);
         }
 
         public async Task<MotionConfig> GetConfig()
@@ -24,6 +25,11 @@ namespace MotionDetectorWebApi.Services
         {
             await _motionConfigHandler.SaveConfiguration(config);
             return await GetConfig();
+        }
+
+        public async Task Restart()
+        {
+            await _motionConfigHandler.RestartMotion();
         }
     }
 }

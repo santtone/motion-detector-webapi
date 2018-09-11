@@ -10,7 +10,7 @@ using MotionDetectorWebApi.Services;
 namespace MotionDetectorWebApi.Controllers
 {
     [Authorize]
-    [Route("api/motion/config")]
+    [Route("api/motion")]
     public class MotionController : Controller
     {
         private readonly IMotionService _motionService;
@@ -20,6 +20,15 @@ namespace MotionDetectorWebApi.Controllers
             _motionService = motionService;
         }
 
+        [Route("restart")]
+        [HttpGet]
+        public async Task<IActionResult> Restart()
+        {
+            await _motionService.Restart();
+            return new OkResult();
+        }
+
+        [Route("config")]
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -27,6 +36,7 @@ namespace MotionDetectorWebApi.Controllers
             return new JsonResult(config);
         }
 
+        [Route("config")]
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] MotionConfig config)
         {

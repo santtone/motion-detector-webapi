@@ -158,9 +158,9 @@ namespace MotionDetectorWebApi
                 {
                     builder.RunProxy(new ProxyOptions
                     {
-                        Scheme = Configuration["StreamProxyLocal:Scheme"],
-                        Host = Configuration["StreamProxyLocal:Host"],
-                        Port = Configuration["StreamProxyLocal:Port"]
+                        Scheme = Configuration["Motion:Scheme"],
+                        Host = Configuration["Motion:Host"],
+                        Port = Configuration["Motion:Port"]
                     });
                 });
         }

@@ -10,5 +10,6 @@ namespace MotionDetectorWebApi.Services
     {
         Task<MotionConfig> GetConfig();
         Task<MotionConfig> UpdateConfig(MotionConfig config);
+        Task Restart();
     }
 }

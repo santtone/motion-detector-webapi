@@ -11,7 +11,7 @@
         public string CaptureHeight { get; set; }
 
         [MotionConfigProperty("framerate")]
-        public string CaptureFramerate { get; set; }
+        public string CaptureFrameRate { get; set; }
 
         [MotionConfigProperty("brightness")]
         public string CaptureBrightness { get; set; }

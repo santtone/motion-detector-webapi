@@ -18,12 +18,14 @@ namespace MotionConfigManager
 
         //Config Params
         private const string ConfigSetParam = "/config/set?";
+        private const string ConfigWrite = "/config/writeyes";
 
 
         //Commands
         private const string DetectionStatusCommand = "/detection/status";
         private const string DetectionStartCommand = "/detection/start";
         private const string DetectionStopCommand = "/detection/pause";
+        private const string RestartCommand = "/action/restart";
 
         private const string DetectionStatusOn = "ACTIVE";
         private const string DetectionStatusOff = "PAUSE";
@@ -97,6 +99,13 @@ namespace MotionConfigManager
             await SendConfigParams(configParams);
         }
 
+        public async Task RestartMotion()
+        {
+            var response = await _httpClient.GetAsync(_motionWebcontrolUrl + RestartCommand);
+            if (!response.IsSuccessStatusCode)
+                Debug.WriteLine($"Failed to restart motion service. Command={RestartCommand}");
+        }
+
         private async Task SendRecordStateChange(bool record)
         {
             var command = record ? DetectionStartCommand : DetectionStopCommand;
@@ -126,11 +135,18 @@ namespace MotionConfigManager
             var urls = configParams.Select(cp => _motionWebcontrolUrl + ConfigSetParam + cp);
             foreach (var url in urls)
             {
-                var response = await _httpClient.GetAsync(_motionWebcontrolUrl + DetectionStatusCommand);
+                var response = await _httpClient.GetAsync(url);
                 if (!response.IsSuccessStatusCode)
                 {
                     Debug.WriteLine($"Set config failed. Url={url}");
                 }
+            }
+
+            //Write current settings to config file
+            var writeResponse = await _httpClient.GetAsync(_motionWebcontrolUrl + ConfigWrite);
+            if (!writeResponse.IsSuccessStatusCode)
+            {
+                Debug.WriteLine($"Writing of config file failed. Url={ConfigWrite}");
             }
         }
 
